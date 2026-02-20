@@ -42,9 +42,33 @@ class ReservePredictor:
         prediction = self.model.predict(geological_data)
         return prediction
 
-if __name__ == "__main__":
+    def generate_synthetic_data(self, samples=100):
+        """
+        Generates synthetic geological data for initial testing.
+        """
+        X = np.random.rand(samples, 10)
+        y = np.sum(X, axis=1) * 100 + np.random.normal(0, 10, samples) # Linear relationship + noise
+        return X, y
+
+    def train_on_synthetic_data(self):
+        """
+        Trains the model on generated synthetic data.
+        """
+        print("Generating synthetic data and training...")
+        X, y = self.generate_synthetic_data(500)
+        self.model.fit(X, y, epochs=5, verbose=1)
+        print("Training complete.")
+
+def main():
     # Example usage
     predictor = ReservePredictor()
-    dummy_data = np.random.rand(1, 10)
-    prediction = predictor.predict_reserve(dummy_data)
-    print(f"Predicted Reserve: {prediction[0][0]:.2f} tons")
+    predictor.train_on_synthetic_data()
+    
+    dummy_data = np.random.rand(5, 10)
+    predictions = predictor.predict_reserve(dummy_data)
+    
+    for i, p in enumerate(predictions):
+        print(f"Sample {i+1} - Predicted Reserve: {p[0]:.2f} tons")
+
+if __name__ == "__main__":
+    main()
