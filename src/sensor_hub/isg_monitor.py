@@ -7,6 +7,12 @@ class ISGMonitor:
     """
     def __init__(self):
         self.log_file = "isg_alerts.log"
+        self.thresholds = {
+            "methane": 5.0, # percentage
+            "co2": 1000,   # ppm
+            "heart_rate_min": 50,
+            "heart_rate_max": 120
+        }
     
     def log_alert(self, alert):
         """
@@ -17,7 +23,6 @@ class ISGMonitor:
             f.write(f"[{timestamp}] {alert}\n")
 
     def read_sensors(self):
-        # ... (keep existing)
         """
         Simulates reading from IoT sensors.
         """
