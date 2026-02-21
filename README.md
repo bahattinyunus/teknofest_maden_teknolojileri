@@ -136,18 +136,82 @@ teknofest_maden_teknolojileri/
 │   ├── ai_models/          # 🧠 GPR-NN Hibrit Rezerv Modelleri
 │   ├── autonomous_nav/     # 🛸 LiDAR tabanlı C++ Navigasyon Node'ları
 │   └── sensor_hub/         # ⌚ IoT ve İSG Takip Protokolleri
-├── launch/                 # � ROS 2 Launch Dosyaları
-├── docs/                   # � Teknik Raporlar ve Metodoloji
+├── launch/                 # 🚀 ROS 2 Launch Dosyaları
+├── docs/                   # 📚 Teknik Raporlar ve Metodoloji
 └── simulation/             # 🎮 Gazebo Simülasyon Konfigürasyonu
 ```
 
 ---
 
-## 📈 Yarışma Yol Haritası (TEKNOFEST 2026)
+## 🕊️ Proje Manifestosu & Felsefe
+
+**DeepMine AI**, sadece bir yazılım değil, madenciliğin geleceğine dair dijital bir duruştur.
+
+*   **Veri Demokratizasyonu:** Yer altındaki kör noktaları ortadan kaldırarak şeffaf ve güvenli bir çalışma ortamı sağlamak.
+*   **İnsan-Makine Senbiyozu:** Operatörü riskli alanlardan uzaklaştırıp, "Dijital Operatör" kimliğiyle sistemin strateji yöneticisi konumuna taşımak.
+*   **Sürdürülebilirlik:** Rezerv tahminlerindeki %95+ doğruluk ile gereksiz sondajları ve çevresel tahribatı minimize etmek.
+
+> "Bizim için maden, sadece yerin altındaki taş değil; o taşı değere, veriyi ise güvenliğe dönüştüren zekadır."
+
+---
+
+## ⚙️ Donanım Spesifikasyonu (Hardware)
+
+Proje, düşük maliyetli ama yüksek performanslı sensör füzyonu üzerine kurgulanmıştır.
+
+| Kategori | Bileşen | Fonksiyon |
+| :--- | :--- | :--- |
+| **Navigasyon** | **Wayfinder DVL** | Akustik hız ölçümü ve GPS-free konumlandırma. |
+| **Görüntüleme** | **Intel RealSense D435i** | Derinlik haritalama ve SLAM desteği. |
+| **Analiz** | **NVIDIA Jetson Orin Nano** | Edge katmanında GPR ve CNN modellerinin koşturulması. |
+| **İSG** | **MQ-4 & MQ-7 Sensörleri** | Metan ve Karbonmonoksit anlık takibi. |
+| **Aktüatör** | **T200 Thrusters (Simulation)** | Otonom taşıyıcı araç motorları. |
+
+---
+
+## 🔬 Multi-Agent System (MAS) Detayları
+
+DeepMine AI'nın kalbinde, her biri farklı bir görevi üstlenen bağımsız ajanlar yer alır:
+
+1.  **Surveyor Agent (Keşifçi):** LiDAR verilerini işleyerek anlık haritayı günceller.
+2.  **Geologist Agent (Jeomorfolog):** GPR kullanarak rezerv kestirimi yapar.
+3.  **Safety Agent (Muhafız):** Gaz ve sağlık verilerini saniyede 10 kez tarayarak acil durum kararı verir.
+4.  **Pilot Agent (Dümenci):** Engel kaçınma algoritmalarını (Potential Fields) koşturarak aracı güvenli rotada tutar.
+
+Bu ajanlar, **ROS 2 DDS** katmanı üzerinden düşük gecikmeli haberleşerek kolektif bir zeka oluşturur.
+
+---
+
+## ❓ Sıkça Sorulan Sorular (FAQ)
+
+**S: Neden GPR ve NN hibrit model kullanılıyor?**
+*C: Sinir ağları genel paternleri çok iyi öğrenir ancak belirsizliği (uncertainty) modelleyemez. GPR ise her tahmin için bir "güven skoru" üretir. Maden sahalarında "bilmiyorum" diyebilen bir AI, yanlış tahminden daha değerlidir.*
+
+**S: Sistem tamamen çevrimdışı çalışabilir mi?**
+*C: Evet. Tüm AI modelleri ve navigasyon algoritmaları uç cihazlarda (Edge Computing) çalışacak şekilde optimize edilmiştir. İnternet bağlantısı sadece merkezi dashboard senkronizasyonu için gereklidir.*
+
+**S: TEKNOFEST 2026 kısıtlamalarına uygun mu?**
+*C: Evet, proje T3 Vakfı tarafından belirlenen yerlilik ve millilik kriterlerine, ayrıca donanım kısıtlamalarına tam uyumlu olarak tasarlanmıştır.*
+
+---
+
+## � Teknoloji Yığını (Tech Stack)
+
+| Alan | Araçlar & Kütüphaneler |
+| :--- | :--- |
+| **Core** | ROS 2 Humble, C++ 17, Python 3.10 |
+| **AI/ML** | TensorFlow, Scikit-Learn, PyTorch |
+| **Simulation** | Gazebo Classic, Unity, Rviz2 |
+| **Data Flow** | Protobuf, JSON, MQTT |
+
+---
+
+## �📈 Yarışma Yol Haritası (TEKNOFEST 2026)
 
 - [x] **Başvuru:** 20.02.2026 ✅
 - [x] **Temel Modül Geliştirme:** (AI, Nav, İSG) ✅
 - [ ] **Ön Değerlendirme Raporu:** 01.04.2026 📝
+- [ ] **Kritik Tasarım Raporu:** Haziran 2026 📝
 - [ ] **Yarı Final Sunumu:** Temmuz 2026 🎤
 - [ ] **Final / Şanlıurfa:** Eylül 2026 🏆
 
@@ -159,6 +223,8 @@ teknofest_maden_teknolojileri/
 
 **Bahattin Yunus**
 *Yazılım, Mekatronik ve Veri Bilimi Tutkunu*
+
+**Geleceği madenlerde değil, o madenleri akıllandıran satırlarda arıyoruz.**
 
 [GitHub](https://github.com/bahattinyunus) • [LinkedIn](#) • [Email](#)
 
