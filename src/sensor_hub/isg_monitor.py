@@ -1,66 +1,62 @@
-import time
+import rclpy
+from rclpy.node import Node
+from std_msgs.msg import String, Float32
+import json
 import random
 
-class ISGMonitor:
+class ISGMonitorNode(Node):
     """
-    Monitors environmental conditions and personnel health status.
+    ROS 2 Node for monitoring environmental conditions and personnel health.
     """
     def __init__(self):
-        self.log_file = "isg_alerts.log"
+        super().__init__('isg_monitor_node')
+        
+        # Publishers
+        self.env_pub = self.create_publisher(String, 'env_status', 10)
+        self.health_pub = self.create_publisher(String, 'health_status', 10)
+        
+        # Thresholds
         self.thresholds = {
             "methane": 5.0, # percentage
             "co2": 1000,   # ppm
-            "heart_rate_min": 50,
             "heart_rate_max": 120
         }
-    
-    def log_alert(self, alert):
-        """
-        Logs critical alerts to a file.
-        """
-        timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
-        with open(self.log_file, "a", encoding="utf-8") as f:
-            f.write(f"[{timestamp}] {alert}\n")
+        
+        self.timer = self.create_wall_timer(2.0, self.timer_callback)
+        self.get_logger().info("DeepMine Smart OHS: ISG Monitoring Node Started.")
 
-    def read_sensors(self):
-        """
-        Simulates reading from IoT sensors.
-        """
-        return {
+    def timer_callback(self):
+        # Simulate sensor readings
+        env_data = {
             "methane": random.uniform(0.0, 6.0),
-            "co2": random.randint(400, 1200),
+            "co2": random.randint(400, 1200)
+        }
+        health_data = {
             "heart_rate": random.randint(60, 130),
-            "location": (random.uniform(36.0, 42.0), random.uniform(26.0, 45.0)) # Lat, Long
+            "location": {"lat": 36.12, "lon": 42.45}
         }
 
-    def check_safety(self, data):
-        """
-        Checks if sensor data exceeds safety thresholds.
-        """
-        alerts = []
-        if data["methane"] > self.thresholds["methane"]:
-            alerts.append(f"CRITICAL: High Methane Level detected: {data['methane']:.2f}%")
-        if data["co2"] > self.thresholds["co2"]:
-            alerts.append(f"WARNING: High CO2 Level detected: {data['co2']} ppm")
-        if data["heart_rate"] > self.thresholds["heart_rate_max"] or data["heart_rate"] < self.thresholds["heart_rate_min"]:
-             alerts.append(f"ALERT: Abnormal Heart Rate: {data['heart_rate']} bpm")
-        
-        return alerts
+        # Publish data as JSON strings
+        env_msg = String()
+        env_msg.data = json.dumps(env_data)
+        self.env_pub.publish(env_msg)
 
-if __name__ == "__main__":
-    monitor = ISGMonitor()
-    print("Starting ISG Monitoring System...")
+        health_msg = String()
+        health_msg.data = json.dumps(health_data)
+        self.health_pub.publish(health_msg)
+
+        self.get_logger().info(f"Published Env Data: {env_data}")
+
+def main(args=None):
+    rclpy.init(args=args)
+    node = ISGMonitorNode()
     try:
-        while True:
-            sensor_data = monitor.read_sensors()
-            safety_alerts = monitor.check_safety(sensor_data)
-            
-            print(f"Reading: {sensor_data}")
-            if safety_alerts:
-                for alert in safety_alerts:
-                    print(f"!!! {alert} !!!")
-                    monitor.log_alert(alert)
-            
-            time.sleep(2)
+        rclpy.spin(node)
     except KeyboardInterrupt:
-        print("Monitoring stopped.")
+        pass
+    finally:
+        node.destroy_node()
+        rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
