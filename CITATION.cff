@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Yunus"
+  given-names: "Bahattin"
+title: "DeepMine AI: Autonomous Mine Analysis and Agent-Based Planning System"
+version: 0.1.0
+date-released: 2026-02-21
+url: "https://github.com/bahattinyunus/teknofest_maden_teknolojileri"

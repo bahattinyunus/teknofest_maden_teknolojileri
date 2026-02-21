@@ -1,0 +1,23 @@
+name: ROS 2 CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup ROS 2
+      uses: ros-tooling/setup-ros@0.7.0
+      with:
+        required-ros-distributions: humble
+    - name: Build
+      uses: ros-tooling/action-ros-ci@0.3.0
+      with:
+        package-name: teknofest_maden_teknolojileri
+        target-ros2-distro: humble
+        vcs-repo-file-url: ""
