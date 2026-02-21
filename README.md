@@ -8,6 +8,7 @@
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![ROS 2 Humble](https://img.shields.io/badge/ROS%202-Humble-red.svg)](https://docs.ros.org/en/humble/)
 [![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-orange.svg)](https://www.tensorflow.org/)
+[![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-Latest-blue.svg)](https://scikit-learn.org/)
 [![Status](https://img.shields.io/badge/Status-Development-green.svg)]()
 
 <br />
@@ -16,6 +17,7 @@
 
 [Proje Vizyonu](#-proje-vizyonu) •
 [Özellikler](#-teknik-özellikler--modüller) •
+[Derin Teknik Detaylar](#-derin-teknik-detaylar) •
 [Kurulum](#-kurulum) •
 [Geliştirici](#-geliştirici-hakkında)
 
@@ -25,54 +27,42 @@
 
 ## 🚀 Proje Vizyonu
 
-**DeepMine AI**, madencilik sektöründe hammadde ihracatçısı kimliğinden **uç ürün teknolojisi üreten bir öncüye** dönüşme vizyonuyla geliştirilmiştir.
+**DeepMine AI**, madencilik sektöründe hammadde ihracatçısı kimliğinden **uç ürün teknolojisi üreten bir öncüye** dönüşme vizyonuyla geliştirilmiştir. 
 
 > "Geleceğin madenciliği yerin altında değil, verinin derinliklerinde başlar."
 
-Bu proje; **Yapay Zeka (AI Agents)**, **Bilgisayar Görüsü (Computer Vision)** ve **Kestirimci Analiz** yöntemlerini birleştirerek maden sahalarındaki verimliliği maksimize etmeyi ve iş kazalarını sıfıra indirmeyi hedefler.
-
----
-
-## 🧠 Neden Bu Proje? (Problem & Çözüm)
-
-Geleneksel madencilikte operasyonel kararlar genellikle statik verilere dayanır. **DeepMine AI**, **Madencilik 4.0** yaklaşımıyla bu paradigmayı değiştiriyor:
-
-| Problem 🛑 | Çözüm ✅ |
-| :--- | :--- |
-| **İthal Bağımlılık:** Yüksek maliyetli yabancı yazılımlar. | **Yerli Teknoloji:** Tamamen yerli imkanlarla geliştirilmiş algoritmalar. |
-| **Veri Körlüğü:** Anlık analiz eksikliği. | **Otonom Karar:** AI tabanlı rezerv tahminleme ve gerçek zamanlı analiz. |
-| **Güvenlik Riski:** Yüksek iş kazası oranları. | **Akıllı İSG:** Giyilebilir sensörler ve otonom tahliye planlaması. |
+Bu proje; **Multi-Agent Systems (MAS)**, **Bilgisayar Görüsü**, ve **Otonom Navigasyon** yöntemlerini birleştirerek maden sahalarındaki verimliliği maksimize etmeyi ve iş kazalarını dijital ikizler ve anlık takip sistemleri ile sıfıra indirmeyi hedefler.
 
 ---
 
 ## 🛠️ Teknik Özellikler & Modüller
 
-### 1. 🤖 AI Agent Tabanlı Rezerv Planlama
+### 1. � AI Agent Tabanlı Rezerv Planlama (Hybrid GPR-NN)
 Sondaj ve jeofizik verilerini analiz ederek **3D cevher modellemesi** yapan karar destek sistemi.
-*   **Teknoloji:** `Python`, `TensorFlow/PyTorch`, `Deep Learning`
-*   **İşlev:** Rezerv alanlarını %95+ doğrulukla tahmin ederek plansız duruşları engeller.
+*   **GPR (Gaussian Process Regression):** Yerel belirsizlikleri ve uzamsal korelasyonu (spatial correlation) minimize eder.
+*   **Neural Networks (NN):** Geniş ölçekli jeolojik paternleri tanımlar.
+*   **Sonuç:** Rezerv alanlarını yüksek doğrulukla tahmin ederek plansız duruşları engeller.
 
-### 2. 🛸 Otonom Navigasyon (GPS-Free)
+### 2. 🛸 Otonom Navigasyon (GPS-Free LiDAR SLAM)
 GPS sinyalinin ulaşmadığı yer altı galerilerinde **LiDAR** ve **Sensör Füzyonu** ile tam otonom hareket.
-*   **Teknoloji:** `ROS 2`, `C++`, `SLAM`, `OpenCV`
-*   **İşlev:** İnsansız araçların karanlık ve dar tünellerde güvenle ilerlemesini sağlar.
+*   **Algoritma:** RRT* tabanlı rota planlama ve Yapay Potansiyel Alanlar (Potential Fields) ile engel kaçınma.
+*   **Teknoloji:** ROS 2 Humble katmanında C++ ile optimize edilmiş gerçek zamanlı navigasyon.
 
-### 3. ⌚ Akıllı İSG ve Giyilebilir Takip
-Personelin hayati verilerini ve ortamdaki gaz seviyelerini (Metan, CO2) anlık izleyen IoT ağı.
-*   **Teknoloji:** `IoT`, `Embedded Systems`, `Real-time Monitoring`
-*   **İşlev:** Tehlike anında otomatik tahliye rotası oluşturur ve acil durum protokollerini devreye sokar.
+### 3. ⌚ Akıllı İSG ve Giyilebilir Takip (Smart OHS)
+Personelin hayati verilerini ve ortamdaki gaz seviyelerini (Metan, CO2) anlık izleyen dağıtık IoT ağı.
+*   **Dağıtık Mimari:** `isg_monitor_node` veriyi toplar, `alert_node` ise anomali tespiti yaparak acil durum protokollerini devreye sokar.
 
 ---
 
 ## 🏗️ Sistem Mimarisi
 
-DeepMine AI, dağıtık bir **Multi-Agent System (MAS)** mimarisi üzerine kuruludur. Aşağıdaki diyagram, sistemin veri akışını ve modüller arası etkileşimi özetler:
+DeepMine AI, dağıtık bir **Multi-Agent System (MAS)** mimarisi üzerine kuruludur.
 
 ```mermaid
 graph TD
     subgraph "Saha Veri Toplama (Edge Layer)"
         A[LiDAR & Kameralar] -->|Nokta Bulutu/Görüntü| B(ROS 2 Sensor Hub)
-        C[loT Sensör Ağı] -->|Gaz/Nabız/Konum| B
+        C[IoT Sensör Ağı] -->|Gaz/Nabız/Konum| B
     end
 
     subgraph "Merkezi İşleme (Fog/Cloud Layer)"
@@ -93,81 +83,70 @@ graph TD
 
 ---
 
-## � Matematiksel Model ve Algoritmalar
+## 🔬 Derin Teknik Detaylar
 
-### 1. Rezerv Kestirimi (Gausian Process Regression)
-Cevher dağılımını modellemek için olasılıksal yöntemler kullanıyoruz. Belirsizliği minimize etmek için hedef fonksiyonumuz:
+### AI Modeli: Hibrit Tahminleme
+Geleneksel madencilik modelleri statiktir. DeepMine AI, **Gaussian Process Regression (GPR)** kullanarak her bir sondaj noktası için bir güven aralığı (uncertainty) hesaplar.
 
-$$ J(\theta) = - \frac{1}{2} \log |K| - \frac{1}{2} y^T K^{-1} y - \frac{n}{2} \log (2\pi) $$
+$$ f(x) \sim \mathcal{GP}(m(x), k(x, x')) $$
 
-Burada $K$ kovaryans matrisini, $y$ gözlemlenen sondaj verilerini temsil eder.
+Burada $k(x, x')$ çekirdek fonksiyonu (RBF-Kernel), cevherin yer altındaki sürekliliğini temsil eder.
 
-### 2. Otonom Rota Planlama (RRT* + Potential Fields)
-Dinamik engellerden kaçınmak için potansiyel alanlar yöntemiyle optimize edilmiş RRT* algoritması kullanılır:
+### Navigasyon: Engel Kaçınma Mekanizması
+Araç, LiDAR verilerini `/scan` topiğinden dinler. Engel tespiti anında potansiyel alanlar yöntemiyle itme vektörü oluşturulur:
 
-$$ U(q) = U_{att}(q) + \sum U_{rep}(q) $$
+$$ F_{total} = F_{attractive} + F_{repulsive} $$
 
-$$ F(q) = -\nabla U(q) $$
-
-Bu sayede araç, hedefe (attraction) yönelirken engellerden (repulsion) matematiksel olarak itilir.
+Eğer bir engel 1 metre mesafeye girerse, araç otomatik olarak rotasını açılı bir manevra ile değiştirir.
 
 ---
 
-## 💻 Kurulum
-
-Projeyi yerel ortamınızda çalıştırmak için aşağıdaki adımları takip edin:
+## 💻 Kurulum ve Çalıştırma
 
 ### Gereksinimler
-*   **OS:** Ubuntu 22.04 LTS (Önerilen) / Windows 10+ (WSL2 ile)
-*   **Python:** 3.8+
-*   **ROS 2:** Humble Hawksbill
+*   **OS:** Ubuntu 22.04 LTS (Humble)
+*   **ROS 2 Packages:** `rclcpp`, `rclpy`, `sensor_msgs`, `nav_msgs`
+*   **Python Libs:** `tensorflow`, `scikit-learn`, `numpy`
 
-### Adım Adım Kurulum
+### Adımlar
 
-1.  **Depoyu Klonlayın:**
-    ```bash
-    git clone https://github.com/bahattinyunus/teknofest_maden_teknolojileri.git
-    cd teknofest_maden_teknolojileri
-    ```
-
-2.  **Bağımlılıkları Yükleyin:**
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-3.  **ROS 2 Çalışma Alanını Derleyin:**
+1.  **Çalışma Alanını Derleyin:**
     ```bash
     colcon build --symlink-install
     source install/setup.bash
     ```
 
-4.  **Simülasyonu Başlatın:**
+2.  **Tüm Sistemi Başlatın (Unified Launch):**
     ```bash
-    ros2 launch autonomous_nav simulation_launch.py
+    ros2 launch teknofest_maden_teknolojileri deepmine_system_launch.py
+    ```
+
+3.  **AI Rezerv Tahmini Analizini Çalıştırın:**
+    ```bash
+    python3 src/ai_models/reserve_predictor.py
     ```
 
 ---
 
+## 📂 Proje Yapısı
+
 ```bash
 teknofest_maden_teknolojileri/
 ├── src/
-│   ├── ai_models/          # 🧠 Rezerv tahminleme ve AI Agent algoritmaları
-│   ├── autonomous_nav/     # 🛸 LiDAR ve GPS-less navigasyon kodları
-│   └── sensor_hub/         # ⌚ IoT veri işleme ve İSG takip modülleri
-├── docs/
-│   ├── raporlar/           # 📄 Proje Ön Değerlendirme Raporları
-│   └── sunumlar/           # 📊 Yarı Final ve Final sunum dosyaları
-├── simulation/             # 🎮 Gazebo/Unity tabanlı simülasyon ortamı
-└── README.md
+│   ├── ai_models/          # 🧠 GPR-NN Hibrit Rezerv Modelleri
+│   ├── autonomous_nav/     # 🛸 LiDAR tabanlı C++ Navigasyon Node'ları
+│   └── sensor_hub/         # ⌚ IoT ve İSG Takip Protokolleri
+├── launch/                 # � ROS 2 Launch Dosyaları
+├── docs/                   # � Teknik Raporlar ve Metodoloji
+└── simulation/             # 🎮 Gazebo Simülasyon Konfigürasyonu
 ```
 
 ---
 
-## 📈 Yarışma Süreci ve Yol Haritası
-
-Proje, **TEKNOFEST 2026** takvimine tam uyumlu olarak ilerlemektedir:
+## 📈 Yarışma Yol Haritası (TEKNOFEST 2026)
 
 - [x] **Başvuru:** 20.02.2026 ✅
+- [x] **Temel Modül Geliştirme:** (AI, Nav, İSG) ✅
 - [ ] **Ön Değerlendirme Raporu:** 01.04.2026 📝
 - [ ] **Yarı Final Sunumu:** Temmuz 2026 🎤
 - [ ] **Final / Şanlıurfa:** Eylül 2026 🏆
@@ -180,8 +159,6 @@ Proje, **TEKNOFEST 2026** takvimine tam uyumlu olarak ilerlemektedir:
 
 **Bahattin Yunus**
 *Yazılım, Mekatronik ve Veri Bilimi Tutkunu*
-
-Havacılık motorları ve otonom sistemler üzerine eğitim almış, **Solopreneur** ruhuyla hareket eden bir mühendis. "Milli Teknoloji Hamlesi"ne katkı sunmak için disiplinlerarası tecrübesini bu projede birleştiriyor.
 
 [GitHub](https://github.com/bahattinyunus) • [LinkedIn](#) • [Email](#)
 
