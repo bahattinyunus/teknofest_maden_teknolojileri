@@ -4,6 +4,8 @@
 # ⛏️ DeepMine AI
 ### Otonom Maden Analiz ve Ajan Tabanlı Planlama Sistemi
 
+<img src="docs/images/banner.png" alt="DeepMine AI Banner" width="100%">
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![ROS 2 Humble](https://img.shields.io/badge/ROS%202-Humble-red.svg)](https://docs.ros.org/en/humble/)
